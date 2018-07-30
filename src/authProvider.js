@@ -26,9 +26,6 @@ export default (type, params) => {
                 path: '/'
             });
         });
-
-        // localStorage.setItem('username', username);
-        return Promise.resolve();
     }
     // called when the user clicks on the logout button
     if (type === AUTH_LOGOUT) {

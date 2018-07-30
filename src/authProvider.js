@@ -29,14 +29,18 @@ export default (type, params) => {
     }
     // called when the user clicks on the logout button
     if (type === AUTH_LOGOUT) {
-        localStorage.removeItem('username');
+        let cookies = new Cookies();
+        sessionStorage.removeItem(TOKEN);
+        cookies.remove(TOKEN);
         return Promise.resolve();
     }
     // called when the API returns an error
     if (type === AUTH_ERROR) {
         const {status} = params;
         if (status === 401 || status === 403) {
-            localStorage.removeItem('username');
+            let cookies = new Cookies();
+            sessionStorage.removeItem(TOKEN);
+            cookies.remove(TOKEN);
             return Promise.reject();
         }
         return Promise.resolve();

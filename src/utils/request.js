@@ -9,9 +9,11 @@ const fetch = (options) => {
 const request = options => {
     if (options.headers === undefined) {
         let cookies = new Cookies();
-        var token = cookies.get(TOKEN) != null ? cookies.get(TOKEN) : sessionStorage.getItem(TOKEN);
-        options.headers = {
-            [JWT_HEADER]: JWT_PREFIX + token
+        var token = cookies.get(TOKEN);
+        if (token != null) {
+            options.headers = {
+                [JWT_HEADER]: JWT_PREFIX + token
+            }
         }
     }
     return fetch(options).then(response => {

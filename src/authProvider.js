@@ -39,7 +39,6 @@ export default (type, params) => {
         const {status} = params;
         if (status === 401 || status === 403) {
             let cookies = new Cookies();
-            sessionStorage.removeItem(TOKEN);
             cookies.remove(TOKEN);
             return Promise.reject();
         }
@@ -48,9 +47,8 @@ export default (type, params) => {
     // called when the user navigates to a new location
     if (type === AUTH_CHECK) {
         let cookies = new Cookies();
-        var token = cookies.get(TOKEN) != null ? cookies.get(TOKEN) : sessionStorage.getItem(TOKEN);
 
-        return token
+        return cookies.get(TOKEN)
             ? Promise.resolve()
             : Promise.reject();
     }
